@@ -226,7 +226,28 @@ print(d["chave2"])
 
 ## Arquivos
 
+Podemos abrir um arquivo em python usamos a função `open`. Essa função espera dois parametros, o primeiro é o caminho do arquivo e o segundo é o modo de abertura.
 
+```python
+file = open("arquivo.txt", "r") #abre um arquivo no modo de leitura
+file = open("new_file.txt", "w") #cria um novo arqruivo e abre no modo escrita
+file = open("existing_file.txt", "a") #abre o arquivo no modo append, um modo escrita para arquivos que já existem
+```
+
+É importante fechar o arquivo após utilizar, para isso utilize a função close.
+
+```python
+file = open("arquivo.txt", "r") #abre um arquivo no modo de leitura
+print(file.read()) #imprime o conteúdo do arquivo
+file.close()
+```
+
+Também podemos utilizar a palavra-chave `with` para abrir e fechar o arquivo automaticamente.
+
+```python
+with open("arquivo.txt", "r") as file:
+    print(file.read())
+```
 
 ## Exceptions
 
@@ -272,3 +293,87 @@ def welcome(nome, **kwargs):
 welcome("Wesley", local="Softplan")
 ```
 
+## Módulo
+
+Um módulo em python é um arquivo que contém funções e variáveis. Esse arquivo tem a extensão `.py` e pode ser importado em outro arquivo.
+
+Imagine que existe o seguinte arquivo chamado calc.py
+
+```python
+def soma(a, b):
+    return a + b
+
+def sub(a, b):
+    return a - b
+```
+
+Em um outro arquivo ou em um terminal podemos fazer o seguinte:
+
+```python
+import calc
+
+print(calc.soma(1, 2))
+
+print(calc.sub(1, 2))
+```
+
+No exemplo acima estamos importando o módulo calc e executando as funções soma e sub.
+
+Se quiséssemos importar apenas uma função do módulo podemos utilizar o comando `from`.
+
+```python
+from calc import soma
+
+print(soma(1,2))
+```
+
+Se o intuito é importar tudo do arquivo soma poderíamos utilizar o operador `*`.
+
+```python
+from calc import *
+
+print(soma(1,2))
+```
+
+## Classes
+
+Python é uma linguagem de programação multiparadigma. Um dos paradigmas suportados é a orientação a objetos.
+
+Estrutura básica de uma classe é:
+
+```python
+class Caneta:
+    def __init__(self, cor):
+        self.cor = cor
+
+    def escrever(self):
+        print("Estou escrevendo com a cor " + self.cor)
+
+caneta = Caneta("azul")
+caneta.escrever()
+```
+
+No exemplo acima criamos a classe Caneta. O método \__init\__ é executado automaticamente quando a classe é instanciada. O primeiro parâmetro de qualquer método da classe é sempre uma referencia para o objeto que está sendo manipulado.
+
+## Herança
+
+Classes podem receber herança de outras classes. Uma coisa interessante do python é que há a possibilidade de se utilizar herança múltipla.
+
+```python
+class MaterialEscolar:
+    def __init__(self, proprietario):
+        self.proprietario = proprietario
+    def dono(self):
+        print("O proprietário é " + self.proprietario)
+
+class Caneta(MaterialEscolar):
+    def __init__(self, proprietario, cor):
+        super().__init__(proprietario)
+        self.cor = cor
+    def escrever(self):
+        print("Estou escrevendo com a cor " + self.cor)
+
+caneta = Caneta("Wesley", "azul")
+caneta.escrever() #imprime "Estou escrevendo com a cor azul"
+caneta.dono() #imprime "O proprietário é Wesley"
+```
